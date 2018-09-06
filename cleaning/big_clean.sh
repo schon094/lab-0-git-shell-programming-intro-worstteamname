@@ -4,25 +4,23 @@ archive=$1
 scratch=$2
 here=$(pwd)
 
-echo $here
-
+#make scratch directory
 mkdir $scratch
 
-tar -xzf $archive -C $scratch
+#extract the archive
+tar -xzf $archive -C  $scratch
 
+#move to scratch directory
 cd $scratch
 
+#create a list of the files to be deleted
 files=$(grep -rl "DELETE ME" *)
 
+#delete each of the files from the list
 for filename in $files
 do
-#	echo $filename
 	rm $filename
 done
 
-cd ~
-cd $here
-
-echo $(pwd)
-
-tar -cf $here/cleaned_$archive $scratch
+#compress the directory
+tar -cvf $here/cleaned_$archive $scratch . 
